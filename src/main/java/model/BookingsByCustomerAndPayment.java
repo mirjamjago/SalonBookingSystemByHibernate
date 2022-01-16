@@ -15,9 +15,9 @@ public class BookingsByCustomerAndPayment {
     }
 
 
-    public BookingsByCustomerAndPayment( String firstName, String lastName, BigDecimal TotalAmount) {
+    public BookingsByCustomerAndPayment( String firstName, String lastName, BigDecimal totalAmount) {
         this.FirstName = firstName;
         this.LastName = lastName;
-        this.TotalAmount = TotalAmount;
+        this.TotalAmount = totalAmount;
     }
 }

@@ -17,6 +17,7 @@ public class MenuEmployee {
         System.out.println();
         System.out.println("1: List all employees");
         System.out.println("2: Create new employee");
+        System.out.println("3: Delete employee from the system");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -35,6 +36,7 @@ public class MenuEmployee {
                     menuRegisterEmployee(input);
                     break;
                 case 3:
+                    menuDeleteEmployee(input);
                     break;
                 case 4:
                     break;
@@ -75,6 +77,18 @@ public class MenuEmployee {
         } else {
             System.out.println("\nNo employees registered\n");
             menuOptions(input);
+        }
+    }
+
+    private void menuDeleteEmployee(Scanner input){
+        System.out.println("Type the Employee ID for Deleting: ");
+        int employeeId = input.nextInt();
+        Employee employee = repositoryEmployee.searchByID(employeeId);
+        if(employee == null){
+            System.out.println("There are no such employee with ID:" + employeeId);
+        }else {
+            repositoryEmployee.delete(employee);
+            System.out.println("Employee successfully deleted from the System");
         }
     }
 

@@ -34,4 +34,15 @@ public class CRUDRepository<T> {
         }
     }
 
+    public void delete(T entity){
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(entity) ? entity : em.merge(entity));
+            em.getTransaction().commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+    }
+
 }
