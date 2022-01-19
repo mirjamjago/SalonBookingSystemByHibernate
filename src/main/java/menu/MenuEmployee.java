@@ -42,8 +42,6 @@ public class MenuEmployee {
                 case 4:
                     menuUpdate(input);
                     break;
-                case 5:
-                    break;
                 case 100:
                     MainMenu.getMainMenu();
                     break;
