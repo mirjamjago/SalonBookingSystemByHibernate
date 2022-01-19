@@ -18,6 +18,7 @@ public class MenuEmployee {
         System.out.println("1: List all employees");
         System.out.println("2: Create new employee");
         System.out.println("3: Delete employee from the system");
+        System.out.println("4: Update the employee information");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -39,6 +40,7 @@ public class MenuEmployee {
                     menuDeleteEmployee(input);
                     break;
                 case 4:
+                    menuUpdate(input);
                     break;
                 case 5:
                     break;
@@ -56,12 +58,12 @@ public class MenuEmployee {
     public void menuRegisterEmployee(Scanner input) {
         Employee employee = new Employee();
         Person person = new Person();
-        ValidationFacility validationService = new ValidationFacility();
-        person.setFirstName(validationService.RegisterName(input, "Fisrt Name"));
-        person.setLastName(validationService.RegisterName(input, "Last Name"));
-        person.setPhoneNumber(validationService.RegisterPhoneNumber(input));
-        person.setEmail(validationService.RegisterEmail(input));
-        employee.setAddress(validationService.RegisterAddress(input));
+        ValidationFacility validationFacility = new ValidationFacility();
+        person.setFirstName(validationFacility.RegisterName(input, "Fisrt Name"));
+        person.setLastName(validationFacility.RegisterName(input, "Last Name"));
+        person.setPhoneNumber(validationFacility.RegisterPhoneNumber(input));
+        person.setEmail(validationFacility.RegisterEmail(input));
+        employee.setAddress(validationFacility.RegisterAddress(input));
         employee.setPerson(person);
         repositoryEmployee.create(employee);
     }
@@ -78,6 +80,11 @@ public class MenuEmployee {
             System.out.println("\nNo employees registered\n");
             menuOptions(input);
         }
+    }
+
+    private void menuUpdate(Scanner input){
+        UpdateMenuEmployee updateMenuEmployee = new UpdateMenuEmployee();
+        updateMenuEmployee.updateMenuChoice(input);
     }
 
     private void menuDeleteEmployee(Scanner input){

@@ -27,7 +27,7 @@ public class UpdateMenuService {
         System.out.println("Type the Service ID: ");
         int serviceID = input.nextInt();
         Service service = repositoryService.searchByID(serviceID);
-        ValidationFacility validationService = new ValidationFacility();
+        ValidationFacility validationFacility = new ValidationFacility();
         if (service == null) {
             System.out.println("There are currently no services registered with ID: " + serviceID);
         } else {
@@ -36,7 +36,7 @@ public class UpdateMenuService {
                 userChoice = updateMenuOptions(input);
                 switch (userChoice) {
                     case 1:
-                        service.setName(validationService.RegisterName(input, "Service Name"));
+                        service.setName(validationFacility.RegisterName(input, "Service Name"));
                         repositoryService.update(service);
                         System.out.println("Service name with ID: " + serviceID +" is updated successfully!");
                         break;
@@ -46,16 +46,14 @@ public class UpdateMenuService {
                         System.out.println("Service description with ID: " + serviceID +" is updated successfully!");
                         break;
                     case 3:
-                        service.setPrice(validationService.RegisterPrice(input));
+                        service.setPrice(validationFacility.RegisterPrice(input));
                         repositoryService.update(service);
                         System.out.println("Service price with ID: " + serviceID +" is updated successfully!");
                         break;
                     case 4:
-                        service.setDuration(validationService.RegisterDuration(input));
+                        service.setDuration(validationFacility.RegisterDuration(input));
                         repositoryService.update(service);
                         System.out.println("Service duration time with ID: " + serviceID +" is updated successfully!");
-                        break;
-                    case 5:
                         break;
                     case 100:
                         break;

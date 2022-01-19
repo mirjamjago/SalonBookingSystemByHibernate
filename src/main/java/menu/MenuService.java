@@ -56,12 +56,12 @@ public class MenuService {
 
     public void menuRegisterService(Scanner input) {
         Service service = new Service();
-        ValidationFacility validationService = new ValidationFacility();
-        service.setName(validationService.RegisterName(input, "Service Name"));
+        ValidationFacility validationFacility = new ValidationFacility();
+        service.setName(validationFacility.RegisterName(input, "Service Name"));
         System.out.println("Type Service Description: ");
         service.setDescription(input.next());
-        service.setPrice(validationService.RegisterPrice(input));
-        service.setDuration(validationService.RegisterDuration(input));
+        service.setPrice(validationFacility.RegisterPrice(input));
+        service.setDuration(validationFacility.RegisterDuration(input));
         repositoryService.create(service);
     }
 

@@ -54,11 +54,11 @@ public class MenuCustomer {
     public void menuRegisterCustomer(Scanner input) {
         Customer customer = new Customer();
         Person person = new Person();
-        ValidationFacility validationService = new ValidationFacility();
-        person.setFirstName(validationService.RegisterName(input, "First Name"));
-        person.setLastName(validationService.RegisterName(input, "Last Name"));
-        person.setPhoneNumber(validationService.RegisterPhoneNumber(input));
-        person.setEmail(validationService.RegisterEmail(input));
+        ValidationFacility validationFacility = new ValidationFacility();
+        person.setFirstName(validationFacility.RegisterName(input, "First Name"));
+        person.setLastName(validationFacility.RegisterName(input, "Last Name"));
+        person.setPhoneNumber(validationFacility.RegisterPhoneNumber(input));
+        person.setEmail(validationFacility.RegisterEmail(input));
         customer.setPerson(person);
         repositoryCustomer.create(customer);
     }
