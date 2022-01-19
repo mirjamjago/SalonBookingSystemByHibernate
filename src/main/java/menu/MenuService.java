@@ -17,7 +17,7 @@ public class MenuService {
         System.out.println();
         System.out.println("1: List all services");
         System.out.println("2: Create new service");
-        System.out.println("3: Update the Service Price");
+        System.out.println("3: Update the Service");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -36,7 +36,7 @@ public class MenuService {
                     menuRegisterService(input);
                     break;
                 case 3:
-                    menuUpdateServicePrice(input);
+                    menuUpdate(input);
                     break;
                 case 4:
                     break;
@@ -80,26 +80,8 @@ public class MenuService {
         }
     }
 
-    private void menuUpdateServicePrice(Scanner input) {
-        System.out.println("Type the Service ID: ");
-        int serviceID = input.nextInt();
-
-        Service service = repositoryService.searchByID(serviceID);
-        ValidationFacility validationService = new ValidationFacility();
-
-        if (service == null) {
-            System.out.println("There are currently no services registered with ID: " + serviceID);
-        } else {
-                service.setPrice(validationService.RegisterPrice(input));
-            repositoryService.update(service);
-            System.out.println("Service is updated successfully!");
-        }
-    }
-
-    //TODO
-    // Make it more general
-    private void UpdateService(Scanner input) {
-
+    private void menuUpdate(Scanner input) {
+        UpdateMenuService updateMenuService = new UpdateMenuService();
+        updateMenuService.updateMenuChoice(input);
     }
 }
-
