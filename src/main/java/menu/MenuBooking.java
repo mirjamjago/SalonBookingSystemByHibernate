@@ -1,8 +1,9 @@
 package menu;
 
 import model.Booking;
-import model.BookingsByCustomerAndPayment;
+import model.Customer;
 import persistence.RepositoryBooking;
+import persistence.RepositoryCustomer;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class MenuBooking {
 
     RepositoryBooking repositoryBooking = new RepositoryBooking();
+    RepositoryCustomer repositoryCustomer = new RepositoryCustomer();
 
     private int menuOptions(Scanner input) {
         System.out.println("\n/***************************************************/");
@@ -17,10 +19,10 @@ public class MenuBooking {
         System.out.println("-------------------------\n");
         System.out.println();
         System.out.println("1: List all bookings");
-        System.out.println("2: Total Bookings");
-        System.out.println("3: Active and NotActive Bookings");
-        System.out.println("4: Total Bookings by person ID");
-        System.out.println("5: Booking list By Customer and Payment");
+        System.out.println("2: Create a booking");
+        System.out.println("3: Total number of Bookings");
+        System.out.println("4: Active and NotActive Bookings");
+        System.out.println("5: Total Bookings by person ID");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -36,16 +38,16 @@ public class MenuBooking {
                     menuListAllBookings(input);
                     break;
                 case 2:
-                    menuTotalBookings(input);
+                    menuCreateBooking(input);
                     break;
                 case 3:
-                    menuTotalActiveAndNotActiveBookings(input);
+                    menuTotalBookings(input);
                     break;
                 case 4:
-                    menuTotalBookingsByCustomer(input);
+                    menuTotalActiveAndNotActiveBookings(input);
                     break;
                 case 5:
-                    menuListOfBookingsByCustomerAndPayment(input);
+                    menuTotalBookingsByCustomer(input);
                     break;
                 case 100:
                     MainMenu.getMainMenu();
@@ -56,6 +58,21 @@ public class MenuBooking {
                     break;
             }// End of switch statement
         } while (userChoice != 100);
+    }
+
+    private void menuCreateBooking(Scanner input) {
+        Booking booking = new Booking();
+        ValidationFacility validationFacility = new ValidationFacility();
+        int customerID = validationFacility.RegisterId(input, "Customer");
+        Customer customer = repositoryCustomer.searchByID(customerID);
+        //TODO WHILE STATEMENT
+        if (customer == null) {
+            System.out.println("Customer with ID: " + customerID + " not found. Please create Customer before booking");
+        } else {
+            booking.setCustomer(customer);
+            booking.setStatus(validationFacility.RegisterStatus(input));
+            repositoryBooking.create(booking);
+        }
     }
 
 
@@ -107,17 +124,6 @@ public class MenuBooking {
             long totalBookingsByCustomer = repositoryBooking.totalBookingsByCustomerName(customerID);
             System.out.println("Customer with ID: " + customerID + " have done " + totalBookingsByCustomer + " bookings in the system");
         } else {
-            System.out.println("\nNo bookings registered\n");
-            menuOptions(input);
-        }
-    }
-
-    public void menuListOfBookingsByCustomerAndPayment(Scanner input) {
-        List<Booking> bookingList = repositoryBooking.getAllBookings();
-        if (bookingList.size() > 0) {
-            List<BookingsByCustomerAndPayment> list = repositoryBooking.byCustomerAndPaymentList();
-            System.out.println(list);
-        } else{
             System.out.println("\nNo bookings registered\n");
             menuOptions(input);
         }

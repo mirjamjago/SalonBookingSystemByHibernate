@@ -104,6 +104,33 @@ public class ValidationFacility {
         return duration;
     }
 
+    public Integer RegisterId(Scanner input, String representedID){
+        int id;
+        while(true){
+            try{
+                System.out.println("Type the " + representedID +" ID: ");
+                id = input.nextInt();
+                break;
+            }catch (InputMismatchException e){
+                System.out.println("Inserted ID is Invalid");
+                input.next();
+            }
+        }
+        return id;
+    }
 
+    public String RegisterStatus (Scanner input){
+        String status = null;
+        while(true){
+            System.out.println("Type the status: ACTIVE or INACTIVE");
+            status = input.next();
+            if(status.equalsIgnoreCase("ACTIVE") || status.equalsIgnoreCase("INTACTIVE")) {
+            break;
+        }else {
+                System.out.println("Inserted Status is Invalid");
+        }
+        }
+        return status;
+    }
 
 }

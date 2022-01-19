@@ -28,13 +28,11 @@ public class UpdateMenuEmployee {
     }
 
     protected void updateMenuChoice(Scanner input) {
-        System.out.println("Type the Service ID: ");
-        int employeeID = input.nextInt();
-        Employee employee = repositoryEmployee.searchByID(employeeID);
-        Person person = new Person();
         ValidationFacility validationFacility = new ValidationFacility();
+        int employeeID = validationFacility.RegisterId(input, "Employee");
+        Employee employee = repositoryEmployee.searchByID(employeeID);
         if (employee == null) {
-            System.out.println("There are currently no employees registered with ID: " + employeeID);
+            System.out.println("There are currently no employees registered with this ID: " + employeeID);
         } else {
             int userChoice;
             do {

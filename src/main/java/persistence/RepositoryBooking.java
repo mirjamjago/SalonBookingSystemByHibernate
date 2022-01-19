@@ -1,7 +1,6 @@
 package persistence;
 
 import model.Booking;
-import model.BookingsByCustomerAndPayment;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
@@ -36,11 +35,7 @@ public class RepositoryBooking extends CRUDRepository<Booking> {
         return (long) q.getSingleResult();
     }
 
-    public List<BookingsByCustomerAndPayment> byCustomerAndPaymentList() {
-        return em.createQuery("select new model.BookingsByCustomerAndPayment (b.customer.person.FirstName, b.customer.person.LastName, b.TotalAMount) " +
-                "from Booking b ", BookingsByCustomerAndPayment.class).getResultList();
 
-    }
 
 
 }
