@@ -1,10 +1,7 @@
 package menu;
 
 import model.Employee;
-import model.Person;
-import model.Service;
 import persistence.RepositoryEmployee;
-import persistence.RepositoryService;
 
 import java.util.Scanner;
 

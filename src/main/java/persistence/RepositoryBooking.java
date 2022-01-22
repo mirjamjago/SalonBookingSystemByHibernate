@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Booking;
+import model.Employee;
 import util.DBUtil;
 
 import javax.persistence.EntityManager;
@@ -35,6 +36,16 @@ public class RepositoryBooking extends CRUDRepository<Booking> {
         return (long) q.getSingleResult();
     }
 
+    public Booking searchByID(int id) {
+        Booking booking = null;
+        try {
+            booking = em.find(Booking.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        }
+        return booking;
+    }
 
 
 

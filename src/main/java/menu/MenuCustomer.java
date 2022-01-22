@@ -8,6 +8,7 @@ import persistence.RepositoryCustomer;
 
 public class MenuCustomer {
     RepositoryCustomer repositoryCustomer = new RepositoryCustomer();
+    ValidationFacility validationFacility = new ValidationFacility();
 
     private int menuOptions(Scanner input) {
         System.out.println("\n/***************************************************/");
@@ -48,12 +49,12 @@ public class MenuCustomer {
     public void menuRegisterCustomer(Scanner input) {
         Customer customer = new Customer();
         Person person = new Person();
-        ValidationFacility validationFacility = new ValidationFacility();
         person.setFirstName(validationFacility.RegisterName(input, "First Name"));
         person.setLastName(validationFacility.RegisterName(input, "Last Name"));
         person.setPhoneNumber(validationFacility.RegisterPhoneNumber(input));
         person.setEmail(validationFacility.RegisterEmail(input));
         customer.setPerson(person);
+        System.out.println("Customer created");
         repositoryCustomer.create(customer);
     }
 

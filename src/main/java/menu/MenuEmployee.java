@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class MenuEmployee {
     RepositoryEmployee repositoryEmployee = new RepositoryEmployee();
+    ValidationFacility validationFacility = new ValidationFacility();
 
     private int menuOptions(Scanner input) {
         System.out.println("\n/***************************************************/");
@@ -56,13 +57,13 @@ public class MenuEmployee {
     public void menuRegisterEmployee(Scanner input) {
         Employee employee = new Employee();
         Person person = new Person();
-        ValidationFacility validationFacility = new ValidationFacility();
         person.setFirstName(validationFacility.RegisterName(input, "Fisrt Name"));
         person.setLastName(validationFacility.RegisterName(input, "Last Name"));
         person.setPhoneNumber(validationFacility.RegisterPhoneNumber(input));
         person.setEmail(validationFacility.RegisterEmail(input));
         employee.setAddress(validationFacility.RegisterAddress(input));
         employee.setPerson(person);
+        System.out.println("Employee created");
         repositoryEmployee.create(employee);
     }
 
@@ -87,7 +88,7 @@ public class MenuEmployee {
 
     private void menuDeleteEmployee(Scanner input){
         System.out.println("Type the Employee ID for Deleting: ");
-        int employeeId = input.nextInt();
+        int employeeId = validationFacility.RegisterId(input, "Employee");
         Employee employee = repositoryEmployee.searchByID(employeeId);
         if(employee == null){
             System.out.println("There are no such employee with ID:" + employeeId);

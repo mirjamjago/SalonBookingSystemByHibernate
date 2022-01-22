@@ -12,6 +12,7 @@ public class MenuBooking {
 
     RepositoryBooking repositoryBooking = new RepositoryBooking();
     RepositoryCustomer repositoryCustomer = new RepositoryCustomer();
+    ValidationFacility validationFacility = new ValidationFacility();
 
     private int menuOptions(Scanner input) {
         System.out.println("\n/***************************************************/");
@@ -23,6 +24,7 @@ public class MenuBooking {
         System.out.println("3: Total number of Bookings");
         System.out.println("4: Active and NotActive Bookings");
         System.out.println("5: Total Bookings by person ID");
+        System.out.println("6: Delete booking");
         System.out.println("100 - Return to Main Menu");
         System.out.println("\n/***************************************************/");
         return input.nextInt();
@@ -49,6 +51,9 @@ public class MenuBooking {
                 case 5:
                     menuTotalBookingsByCustomer(input);
                     break;
+                case 6:
+                    menuDeleteBooking(input);
+                    break;
                 case 100:
                     MainMenu.getMainMenu();
                     break;
@@ -62,10 +67,8 @@ public class MenuBooking {
 
     private void menuCreateBooking(Scanner input) {
         Booking booking = new Booking();
-        ValidationFacility validationFacility = new ValidationFacility();
         int customerID = validationFacility.RegisterId(input, "Customer");
         Customer customer = repositoryCustomer.searchByID(customerID);
-        //TODO WHILE STATEMENT
         if (customer == null) {
             System.out.println("Customer with ID: " + customerID + " not found. Please create Customer before booking");
         } else {
@@ -127,6 +130,18 @@ public class MenuBooking {
             System.out.println("\nNo bookings registered\n");
             menuOptions(input);
         }
+    }
+    public void menuDeleteBooking(Scanner input){
+        System.out.println("Type the Booking ID for deleting");
+        int bookingID = validationFacility.RegisterId(input, "Booking");
+        Booking booking = repositoryBooking.searchByID(bookingID);
+        if(booking == null){
+            System.out.println("There are no bookings with ID:" + +bookingID);
+        }else {
+            repositoryBooking.delete(booking);
+            System.out.println("Booking deleted from the system");
+        }
+
     }
 
 
